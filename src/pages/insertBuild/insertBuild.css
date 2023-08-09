@@ -1,0 +1,67 @@
+.Form_inserimento{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-clear-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.input_layout{
+    width: 1000px;
+    height: auto;
+    background-color: rgb(230, 230, 230);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.input_grid{
+    width: 100%;
+    min-height: 35px;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    column-gap: 15px;
+}
+
+.input_grid>textarea{
+    height: 150px;
+    resize: none;
+}
+
+.input_grid>div{
+   grid-column: 1/span 2;
+}
+
+.input_grid>input ,.input_grid>textarea  {
+    padding-left: 10px;
+    font-size: 17px;
+}
+
+#create_build{
+    width: 200px;
+    height: 30px;
+    align-self: flex-end;
+    justify-self: flex-end;
+}
+
+.prev_img{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.prev_img>img{
+    width: 200px;
+    margin: 10px;
+    border: solid black 2px;
+}
+

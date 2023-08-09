@@ -1,0 +1,77 @@
+.last_cards {
+    width: 100%;
+    padding-top: 30px;
+    display: flex;
+    flex-wrap: nowrap; /* Impedisce il wrapping dei card */
+    justify-content: center;
+    gap: 20px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Abilita lo scorrimento scorrevole su dispositivi touch */
+
+  }
+  
+
+.card{
+    min-width: 300px;
+    height: 350px;
+    background-color: gray;
+    transition:  0.3s ease-in-out; 
+    box-shadow: 0px 2px 14px 0px grey;
+    display: flex;
+    flex-direction: column-reverse;
+    cursor: pointer;
+  
+}
+
+.card:hover{
+    min-width: 450px;
+}
+
+.info_card{
+    width: 100%;
+    height: 150px;
+    background-color: rgb(178,34,34,0.9);
+    clip-path: polygon(0 0, 100% 20%, 100% 100%, 0% 100%);
+}
+
+.info_card_desc{
+  color: white;
+  padding-top: 20px;
+  padding-left: 10px;
+}
+
+.info_card_comune{
+  font-size: 20px;
+}
+
+.info_card_prezzo{
+  font-size: 30px;
+}
+
+@media (min-width: 750px) and (max-width: 900px)  {
+    .last_cards {
+        flex-wrap: wrap;
+      }
+
+      .card{
+        min-width: 40%;
+      }
+
+      .card:hover{
+        min-width: 40%;
+    }
+}
+
+@media (max-width: 750px) {
+    .last_cards {
+        flex-wrap: wrap;
+      }
+
+      .card{
+        min-width: 300px;
+      }
+
+      .card:hover{
+        min-width: 300px;
+    }
+}

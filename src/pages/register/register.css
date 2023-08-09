@@ -1,0 +1,12 @@
+#visiblePassword{
+    position: relative;
+    top:6px;
+    left: 4px;
+    width: 26px;
+}
+
+.Error{
+    
+    color: rgb(204, 0, 0);
+    width: 300px;
+}

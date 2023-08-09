@@ -1,0 +1,81 @@
+.layoutBuild{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(237, 237, 237);
+    width: 100%;
+}
+
+.pageBuild{
+    background-color: white;
+    padding: 30px;
+}
+
+.imageBuild{
+    position: relative;
+}
+
+.imageBuild>img{
+    width: 100%;
+    height: 400px;
+    object-fit: cover; 
+    border-radius: 20px;
+}
+
+.arrow_{
+    position: absolute;
+    top: 40%;
+    color: white;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+.arrow_:hover{
+    background-color: rgb(0,0,0,0.4);
+}
+.pre{
+    left: 0;
+}
+
+.next{
+    right: 0;
+}
+
+.prezzoBuild{
+    font-weight: 600;
+    font-size: 30px;
+}
+
+.descBuild{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.leggi_desc{
+    font-size: 21px;
+    color: #7c0000;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.leggi_desc:hover{
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 800px) {
+    .pageBuild {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .pageBuild {
+        min-width: 800px;
+    }
+}

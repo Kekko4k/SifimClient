@@ -1,0 +1,83 @@
+.home{
+    padding: 0 30px 30px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.background_search {
+    width: 100%; /* Imposta la larghezza del contenitore */
+    overflow: hidden; /* Nasconde il contenuto che supera le dimensioni del contenitore */
+    position: relative; /* Imposta la posizione relativa per posizionare il contenuto */
+    transition: 0.7s ease-in-out; /* Aggiungi una transizione per l'immagine di sfondo */
+  }
+
+  .background_search:before {
+    content: ''; /* Crea un pseudo-elemento per contenere l'immagine di sfondo */
+    background-size: cover; /* Adatta l'immagine alla dimensione del contenitore */
+    width: 300%; /* Imposta la larghezza in modo da coprire tre volte il contenitore */
+    height: 100%; /* Imposta l'altezza uguale al contenitore */
+    position: absolute; /* Imposta la posizione assoluta */
+ }
+
+
+.background_search{
+    width: 100%;
+    height: 600px;
+    background-color: grey;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    margin-top: 20px;
+    position: relative;
+}
+
+.button_home{
+    height: 50px;
+    width: 250px;
+    padding: 0 10px 0 10px;
+    background-color: rgb(182, 1, 1);
+    color: white;
+    font-size: 19px;
+    margin  : 0 100px 80px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.button_home:hover{
+    background-color: rgb(136, 1, 1);
+    scale: 1.01;
+}
+
+.title_cards{
+    width: 100%;
+    height: 40px;
+    color: white;
+    font-size: 21px;
+    background: linear-gradient(to right,#ca0000,#ffffff,#ffffff);
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+@media screen and (max-width:500px){
+    .background_search{
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+    }
+
+    
+    .button_home{
+        margin  : 0;
+    }
+
+    .title_cards{
+        background: #ca0000;
+    }
+}

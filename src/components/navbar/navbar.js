@@ -20,6 +20,7 @@ function Navbar() {
   const auth = useAuth();
   const dropdownRef = useRef(null);
   const currentURL = window.location.href;
+  const clietUrl = process.env.REACT_APP_SITE;
 
 
   function ctrlDropdown() {
@@ -52,7 +53,7 @@ function Navbar() {
 
   return (
     <div>
-      {currentURL === 'http://localhost:3000/' ?
+      {currentURL === clietUrl?
 
         <NavbarHome />
         :

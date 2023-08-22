@@ -1,5 +1,7 @@
 :root {
     --background-color-navbar: rgb(181, 0, 0);
+    --background-profile-color-navbar: rgb(168, 0, 0);
+    --background-color-profile:#fff;
 }
 
 .navigation {
@@ -149,6 +151,23 @@ ul {
 }
 
 
+.profile_home{
+    background-color: var(--background-color-profile);
+    border-radius: 10px;
+}
+
+.profile_home:hover{
+    background-color: rgb(219, 219, 219);
+}
+
+
+.profile_not_home{
+    background-color: var(--background-profile-color-navbar);
+}
+
+.profile_not_home:hover {
+    background-color: rgb(159, 0, 0);
+}
 
 
 .dropdown_navbar {
@@ -159,20 +178,24 @@ ul {
     align-items: center;
     justify-content: flex-start;    
     width: 240px;
+    border-bottom: solid 3px #660000;
+    padding: 10px 5px;
+    position: relative;
 }
 
-.dropdown_navbar:hover{
-    background-color: rgb(164, 0, 0);
-}
 
-.bar_dropdown {
+
+
+.bar_dropdown{
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: white;
-    top: 100%;
+    background-color: rgb(231, 231, 231);
+    top: 88%;
     width: 240px;
     z-index: 999;
+    left: 0;
+    
 }
 
 .bar_dropdown>div {

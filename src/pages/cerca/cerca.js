@@ -3,7 +3,7 @@ import axios from 'axios'
 import Pagination from "../../components/pagination/pagination"
 import ShowBuilding from '../../components/showBuildings/showBuilding'
 import Filter from '../../components/filter/filter'
-import {useAuth} from '../../components/AuthContext'
+import { useAuth } from '../../components/AuthContext'
 import { useNavigate } from "react-router-dom";
 import "./cerca.css"
 
@@ -15,10 +15,12 @@ function Cerca() {
     const [currentPage, setCurrentPage] = useState(queryParameters.get("page"));
     const [list, setList] = useState([])
     const [favorites, setFavorites] = useState([])
-    const Linkurl=useRef()
+    const [loading, setLoading] = useState(false)
+    const Linkurl = useRef()
     const auth = useAuth();
+    const apiUrl = process.env.REACT_APP_API_URL;
 
-   
+
 
     let local = [];
     if (queryParameters.get("locali")) {
@@ -65,14 +67,14 @@ function Cerca() {
 
 
 
- 
+
 
 
     useEffect(() => {
         // fetchData();
         const getAllHouse = async () => {
-            let url=""
-            if (tipologia.length>1){
+            let url = ""
+            if (tipologia.length > 1) {
                 url += `?tipologia=${tipologia}`
             }
             if (PrezzoMin > 0) {
@@ -99,10 +101,11 @@ function Cerca() {
             navigate({ pathname: '/cerca', search: url });
             Linkurl.current = url;
             try {
-               fetch(`http://localhost:5000/inserBuild/cerca` + url)
+                fetch(apiUrl+`/inserBuild/cerca` + url)
                     .then((response) => response.json())
                     .then((actualData) => {
                         setList(actualData);
+                        setLoading(true)
                     })
                     .catch((err) => {
                         console.log(err.message);
@@ -112,25 +115,25 @@ function Cerca() {
         }
 
         const getFavorite = async () => {
-            if(auth.user){
+            if (auth.user) {
                 try {
-                    fetch(`http://localhost:5000/inserBuild/cercaFavoriti?id=${auth.user}`)
-                         .then((response) => response.json())
-                         .then((actualData) => {
-                           
+                    fetch(apiUrl+`/inserBuild/cercaFavoriti?id=${auth.user}`)
+                        .then((response) => response.json())
+                        .then((actualData) => {
+
                             setFavorites(actualData.idBuilds)
-                         })
-                         .catch((err) => {
-                             console.log(err.message);
-                         });
-                 } catch (err) {
-                 }
+                        })
+                        .catch((err) => {
+                            console.log(err.message);
+                        });
+                } catch (err) {
+                }
             }
         }
 
         getAllHouse();
         getFavorite();
-    }, [filterLocali, tipologia, filterBagni, PrezzoMin, PrezzoMax, superficieMin, superficieMax, Linkurl,currentPage]);
+    }, [filterLocali, tipologia, filterBagni, PrezzoMin, PrezzoMax, superficieMin, superficieMax, Linkurl, currentPage]);
 
 
 
@@ -202,10 +205,18 @@ function Cerca() {
                 prezzoMax={onFilterPrezzoMax}
                 superficieMin={onFilterSuperficieMin}
                 superficieMax={onFilterSuperficieMax} />
-            <div>
-                <ShowBuilding posts={currentPosts} favorites={favorites} setFavorites={setFavorites}/>
-                {list && <Pagination currentPage={currentPage} postsPerPage={postsPerPage} totalPosts={list.length} paginate={paginate} /> }
-            </div>
+
+            {!loading ?
+                <div className="screen-loading">
+                    <div className="loading-div"/>
+                    <div className="loading-div"/>
+                    <div className="loading-div"/>
+                </div> :
+                <div>
+                    <ShowBuilding posts={currentPosts} favorites={favorites} setFavorites={setFavorites} />
+                    <Pagination currentPage={currentPage} postsPerPage={postsPerPage} totalPosts={list.length} paginate={paginate} />
+                </div>
+            }
         </div>
     )
 

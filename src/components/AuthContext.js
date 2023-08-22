@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
   const [nick,setNick] =useState(null) 
   const [ammin, setAmmin] = useState(false)
   const [token, setToken] = useState(null);
-
+  const siteUrl = process.env.REACT_APP_API_URL;
  
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export const AuthProvider = ({children}) => {
       setNick(nick);
       setUser(data);
       try {
-        axios.post("http://localhost:5000/users/ammin", {
+        axios.post(siteUrl+"/users/ammin", {
           id: data
         }).then((response) => {
           if (response.status === 200) {

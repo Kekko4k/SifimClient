@@ -15,6 +15,7 @@ function Register() {
   const [errorPass, setErrorPass] = useState(null);
   const [errorCheck, setErrorCheck] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   const ShowPassword = () => {
     setPasswordShown(!passwordShown);
@@ -79,7 +80,7 @@ function Register() {
     if (isValidEmail(user.email) && isValidName(user.name) && isValidPassword(user.password)===0 && isChecked) {
       const date = new Date().toJSON().slice(0, 10);
       try {
-          await axios.post("http://localhost:5000/users/register", {
+          await axios.post(apiUrl+"/users/register", {
             username: user.name,
             email: user.email,
             password: user.password,

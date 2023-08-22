@@ -17,6 +17,7 @@ function Cerca() {
     const [favorites, setFavorites] = useState([])
     const Linkurl = useRef()
     const auth = useAuth();
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     let local = [];
     if (queryParameters.get("locali")) {
@@ -97,7 +98,7 @@ function Cerca() {
                 Linkurl.current = url
 
                 try {
-                    fetch(`http://localhost:5000/inserBuild/preferiti` + url)
+                    fetch(apiUrl+`/inserBuild/preferiti` + url)
                         .then((response) => response.json())
                         .then((actualData) => {
                             
@@ -114,7 +115,7 @@ function Cerca() {
         const getFavorite = async () => {
             if (auth.user) {
                 try {
-                    fetch(`http://localhost:5000/inserBuild/cercaFavoriti?id=${auth.user}`)
+                    fetch(apiUrl+`/inserBuild/cercaFavoriti?id=${auth.user}`)
                         .then((response) => response.json())
                         .then((actualData) => {
 

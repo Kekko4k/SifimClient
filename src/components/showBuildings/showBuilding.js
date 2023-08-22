@@ -7,11 +7,13 @@ import "./showBuilding.css"
 import Pref from "../../images/Search/red_heart.png";
 import Not_Pref from "../../images/Search/heart.png";
 
+
 function ShowBuilding({ posts, favorites, setFavorites }) {
 
   const auth = useAuth();
   const [images, setImages] = useState([])
- const navigate = useNavigate();
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
 
@@ -20,7 +22,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
         const ids = posts.map(post => post._id); // Estrai solo gli ID degli elementi
 
         try {
-          const response = await axios.get('http://localhost:5000/inserBuild/files', {
+          const response = await axios.get(apiUrl+'/inserBuild/files', {
             params: {
               ids: ids.join(",") // Passa gli ID degli annunci separati da virgola
             }
@@ -39,7 +41,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
 
 
   function getImage(id, i) {
-    let link = "http://localhost:5000/site/search/No_immage.png";
+    let link = apiUrl+"/site/search/No_immage.png";
     if (images.length > 0) {
       images.map((build, index) => (
         build.id_app === id ? link = build.images[i] : null
@@ -57,8 +59,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
       if (image.id_app === id) {
         const currentIndex = image.images.findIndex((link) => link === currentSrc);
         const nextIndex = (currentIndex + 1);
-        console.log(nextIndex)
-        console.log(image.images.length)
+
         if ((currentIndex + 1) === image.images.length) {
           element.src = image.images[0];
         } else {
@@ -93,7 +94,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
     e.stopPropagation();
     if (auth.user) {
       try {
-        await axios.post("http://localhost:5000/inserBuild/favoriteAdd", {
+        await axios.post(apiUrl+"/inserBuild/favoriteAdd", {
           id_build: id,
           id_user: auth.user
         }).then((response) => {
@@ -141,9 +142,9 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
 
   async function removeFavorite(e, id) {
     e.stopPropagation();
-     // Creare il div con il messaggio di avviso e il pulsante "Accedi"
-     const loginReminderDiv = document.createElement("div");
-     loginReminderDiv.innerHTML = `
+    // Creare il div con il messaggio di avviso e il pulsante "Accedi"
+    const loginReminderDiv = document.createElement("div");
+    loginReminderDiv.innerHTML = `
      <div class="layoutFavorite">
        <div class="messageFavorite">
        <div class="close" id="closePref">✖</div>
@@ -153,20 +154,20 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
      </div>
    `;
 
-     // Aggiungere il div al corpo del documento
-     document.body.appendChild(loginReminderDiv);
+    // Aggiungere il div al corpo del documento
+    document.body.appendChild(loginReminderDiv);
 
-     // Aggiungere un gestore di eventi al pulsante "Accedi"
-     const closeButton = loginReminderDiv.querySelector("#closePref");
-     closeButton.addEventListener("click", () => {
-       loginReminderDiv.remove(); // Rimuovi il div dalla finestra
-     });
+    // Aggiungere un gestore di eventi al pulsante "Accedi"
+    const closeButton = loginReminderDiv.querySelector("#closePref");
+    closeButton.addEventListener("click", () => {
+      loginReminderDiv.remove(); // Rimuovi il div dalla finestra
+    });
 
-     // Aggiungere un gestore di eventi al pulsante "Accedi"
-     const siButton = loginReminderDiv.querySelector("#SiButton");
-     siButton.addEventListener("click", () => {
+    // Aggiungere un gestore di eventi al pulsante "Accedi"
+    const siButton = loginReminderDiv.querySelector("#SiButton");
+    siButton.addEventListener("click", () => {
       try {
-          axios.post("http://localhost:5000/inserBuild/favoriteRemove", {
+        axios.post(apiUrl+"/inserBuild/favoriteRemove", {
           id_build: id,
           id_user: auth.user
         }).then((response) => {
@@ -176,28 +177,37 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
       } catch (error) {
         console.log(error)
       }
-       loginReminderDiv.remove(); // Rimuovi il div dalla finestra
-     });
+      loginReminderDiv.remove(); // Rimuovi il div dalla finestra
+    });
 
-     const noButton = loginReminderDiv.querySelector("#noButton");
-     noButton.addEventListener("click", () => {
-       loginReminderDiv.remove(); // Rimuovi il div dalla finestra
-     });
+    const noButton = loginReminderDiv.querySelector("#noButton");
+    noButton.addEventListener("click", () => {
+      loginReminderDiv.remove(); // Rimuovi il div dalla finestra
+    });
 
   }
 
   function linkBuild(id) {
-    navigate("/immobile/"+id)
+    navigate(`/immobile/${id}`, {
+      state: {
+        url: window.location.href
+      }
+    });
   }
 
   return (
     <div className='LayoutPosts' >
+
       {posts.map((build, index) => (
         <div className='singlePost' onClick={() => linkBuild(build._id)}>
           <div className='layout_image'>
             <img className='image' id={build._id} src={getImage(build._id, 0)} ></img>
-            <button className="arrow right" id={"button" + build._id} onClick={(e) => changeImageNext(e, build._id)}>{'>'}</button>
-            <button className="arrow left" id={"button" + build._id} onClick={(e) => changeImagePre(e, build._id)} >{'<'} </button>
+            {getImage(build._id, 0) !== apiUrl+"/site/search/No_immage.png" && (
+              <React.Fragment>
+                <button className="arrow right" id={"button" + build._id} onClick={(e) => changeImageNext(e, build._id)}>{'>'}</button>
+                <button className="arrow left" id={"button" + build._id} onClick={(e) => changeImagePre(e, build._id)} >{'<'} </button>
+              </React.Fragment>
+            )}
           </div>
           <div className='description'>
             <span id='title_build'>{build.titolo}</span><br />
@@ -207,7 +217,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
               <div className='single_info'><div >{build.superficie} m2</div><div>superficie</div></div>
             </div>
             <br />
-            <div>{build.descrizione> 320 ? build.descrizione.slice(0, 320) + "..." : build.descrizione}</div>
+            <div>{build.descrizione > 320 ? build.descrizione.slice(0, 320) + "..." : build.descrizione}</div>
           </div>
           <div className='favorite'>
             {favorites.includes(build._id) ? (
@@ -218,6 +228,7 @@ function ShowBuilding({ posts, favorites, setFavorites }) {
           </div>
         </div>
       ))}
+
     </div>
   )
 }

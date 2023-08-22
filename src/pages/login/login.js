@@ -13,7 +13,7 @@ function Login() {
     const navigate=useNavigate();
     const location= useLocation()
     const redirectPath = location.state?.path || '/'
-
+    const apiUrl = process.env.REACT_APP_API_URL;
 
   const handleChange = (e) =>{
     const {name,value} = e.target;
@@ -23,16 +23,20 @@ function Login() {
 
   async function Postdata (e){
     e.preventDefault();
-    try {
-      await axios.post("http://localhost:5000/users/login", {
-        email: user.email,
-        password: user.password,
-      }).then((response) => { 
-        auth.login(response.data._id, response.data.username);
-        navigate(redirectPath, {replace: true});
-      });
-    } catch (error) {
-      setError(error.response.data.message)
+    if(user.email && user.password){
+      try {
+        await axios.post(apiUrl+"/users/login", {
+          email: user.email,
+          password: user.password,
+        }).then((response) => { 
+          auth.login(response.data._id, response.data.username);
+          navigate(redirectPath, {replace: true});
+        });
+      } catch (error) {
+        setError(error.response.data.message)
+      }
+    }else{
+      setError("Inserire i campi richiesti");
     }
   }
 

@@ -1,30 +1,37 @@
 .last_cards {
     width: 100%;
-    padding-top: 30px;
+    min-height: 350px;
+    padding: 20px 15px 15px 15px;
     display: flex;
-    flex-wrap: nowrap; /* Impedisce il wrapping dei card */
-    justify-content: center;
-    gap: 20px;
-    overflow-x: auto;
+    flex-wrap: wrap; /* Impedisce il wrapping dei card */
+    justify-content: flex-start;
+    gap: 15px;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch; /* Abilita lo scorrimento scorrevole su dispositivi touch */
-
+    
   }
   
 
 .card{
-    min-width: 300px;
-    height: 350px;
+    width: calc(49% - 10px); /* Larghezza delle carte (2 carte per riga) */
+    height: 340px;
     background-color: gray;
     transition:  0.3s ease-in-out; 
     box-shadow: 0px 2px 14px 0px grey;
     display: flex;
     flex-direction: column-reverse;
     cursor: pointer;
-  
+    transition: opacity 0.3s ease-in-out;
+    opacity: 1; /* Opacità normale */
+    border-radius: 15px;
+    transition: scale 0.1s ease-in-out;
+    background-size: cover; /* L'immagine viene ridimensionata per coprire l'area */
+    background-repeat: no-repeat; /* Evita la ripetizione dell'immagine */
+    
 }
 
-.card:hover{
-    min-width: 450px;
+.card:hover {
+  scale: 1.01;
 }
 
 .info_card{
@@ -32,6 +39,7 @@
     height: 150px;
     background-color: rgb(178,34,34,0.9);
     clip-path: polygon(0 0, 100% 20%, 100% 100%, 0% 100%);
+    border-radius: 0 0 15px 15px;
 }
 
 .info_card_desc{
@@ -48,27 +56,27 @@
   font-size: 30px;
 }
 
+
+
 @media (min-width: 750px) and (max-width: 900px)  {
     .last_cards {
         flex-wrap: wrap;
       }
 
       .card{
-        min-width: 40%;
+        min-width: 97%;
       }
 
-      .card:hover{
-        min-width: 40%;
-    }
 }
 
 @media (max-width: 750px) {
     .last_cards {
-        flex-wrap: wrap;
+        padding: 30px 10px 10px 10px;  
       }
 
       .card{
-        min-width: 300px;
+        width: 96%;
+        
       }
 
       .card:hover{

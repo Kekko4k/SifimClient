@@ -32,7 +32,7 @@ function Inserimento() {
 
     const [message, setMessage] = useState("");
     const [previews, setPreviews] = useState([]);
-
+    const apiUrl = process.env.REACT_APP_API_URL;
 
     const data = [
         {
@@ -114,7 +114,7 @@ function Inserimento() {
     let handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:5000/inserBuild/add", {
+            await axios.post(apiUrl+"/inserBuild/add", {
                 anno_costruzione: anno_costruzione,
                 certificazione: certificazione,
                 climatizzatore: climatizzatore,
@@ -144,7 +144,7 @@ function Inserimento() {
                         formData.append("Id_app", response.data.insertedId);
                     }
                     try {
-                        const fetchResponse = fetch('http://localhost:5000/inserBuild/files', {
+                        const fetchResponse = fetch(apiUrl+'/inserBuild/files', {
                             method: 'POST',
                             body: formData,
                         }).then((response) => {

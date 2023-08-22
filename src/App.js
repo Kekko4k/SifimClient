@@ -7,6 +7,8 @@ import Insert from './pages/insertBuild/insertBuild'
 import Cerca from './pages/cerca/cerca'
 import Preferiti from './pages/listaPreferiti/listaPreferiti'
 import Build from './pages/showBuild/showBuild'
+import Contatti from './pages/contatti/contatti'
+import Footer from './components/footer/footer';
 import {  Route, Routes, BrowserRouter as Router} from "react-router-dom";
 import './App.css';
 import { AuthProvider } from './components/AuthContext';
@@ -24,8 +26,11 @@ function App() {
           <Route path='/insertBuild' element={<Insert/>}></Route>
           <Route path='/cerca' element={<Cerca/>}></Route>
           <Route path='/preferiti' element={<Preferiti/>}></Route>
+          <Route path='/contatti' element={<Contatti/>}></Route>
           <Route path='/immobile/:id' element={<Build/>}></Route>
+          
         </Routes>
+        <Footer/>
       </Router>
       </AuthProvider>
     </div>
